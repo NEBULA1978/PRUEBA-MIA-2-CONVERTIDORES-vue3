@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+		<meta charset="utf-8">
+		<title>javaScript</title>
+		<style>
+		body, input, button {
+			font-family: 'Prompt', sans-serif;
+		}
+		main {
+			width: 650px;
+			margin: auto;
+		}
+		.contenedor {
+			display: flex;
+			width: 63%;
+			max-width: 400px;
+			border: 3px dashed orange;
+			border-radius: 9px;
+			padding: 12px;
+		}
+		.caja_cambio {
+			font-size: 0.75em;
+			padding-left: 30px;
+			margin-top: 3px;
+		}
+		#input_cambio {
+			font-size: 1.1em;
+			width: 30px;
+			text-align: center;
+		}
+		#conversiones {
+			margin-top: 10px;
+			color: #ec7c26;
+			font-size: 1.1em;
+			padding-left: 30px;
+		}
+		#dinero {
+			padding: 8px 15px;
+			border-radius: 7px 0 0 7px;
+			outline: none;
+			font-size: 1.4em;
+			border: 1px dotted #ec7c26;
+			color: #ec7c26;
+			width: 67%;
+		}
+		::placeholder {
+			color: #ec7c26;
+			font-size: 0.92em;
+		}
+		button {
+			padding: 9px 13px;
+			border-radius: 0 7px 7px 0;
+			font-size: 1.1em;
+			background-color: orange;
+			border: none;
+		}
+	</style>
+		<link rel="stylesheet" type="text/css" href="css/estilos.css">
+		<!-- <script type="text/javascript" src="js/codigo.js"></script> -->
+		<script type="text/javascript">
+		// Your JavaScript code here
+
+		function convertir(cantidad, cambio) {
+			let resultado = cantidad * cambio;
+			return resultado;
+		}
+
+		var cambio_yen = 125;
+		var cambio_yen2 = 125;
+		window.onload = inicio;
+
+		function inicio() {
+			document.getElementById("input_cambio").value = cambio_yen;
+			document.getElementById("boton").onclick = ir_a_convertir;
+			document.getElementById("dinero").onkeydown = teclado;
+
+			// Add an event listener to the input field for euros
+			const dineroInput = document.getElementById("dinero");
+			dineroInput.addEventListener("input", validateInput);
+		}
+
+		function validateInput(event) {
+			// Get the input value and remove any non-numeric characters
+			let inputValue = event.target.value.replace(/[^\d.]/g, '');
+
+			// Update the input value with the cleaned numeric value
+			event.target.value = inputValue;
+		}
+
+		function teclado(a) {
+			let codigo_tecla = a.keyCode;
+			if (codigo_tecla == 13) {
+				ir_a_convertir();
+			}
+		}
+
+		function ir_a_convertir() {
+			cambio = document.getElementById("input_cambio").value;
+			cantidad = document.getElementById("dinero").value;
+			cantidad = (cantidad !== "") ? cantidad : 1;
+			a = convertir(cantidad, cambio);
+			document.getElementById("conversiones").innerHTML += cantidad + " euros son " + a + " yenes<br>";
+			document.getElementById("dinero").value = "";
+			document.getElementById("dinero").focus();
+		}
+	</script>
+	</head>
+	<body>
+		<main>
+			<div class="contenedor">
+				<input id="dinero" placeholder="Escribe cantidad en euros" autofocus>
+				<button id="boton">Convertir</button>
+			</div>
+			<div class="caja_cambio">1 € son <input id="input_cambio" /> yenes</div>
+			<div id="conversiones"></div>
+		</main>
+	</body>
+</html>
